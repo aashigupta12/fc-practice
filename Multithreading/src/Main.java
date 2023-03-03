@@ -8,25 +8,32 @@ public class Main {
         anotherThread.start();
 //        anotherThread.run();
 
-        new Thread(){
-            @Override
-            public void run() {
-                System.out.println(ThreadColor.ANSI_GREEN + " hello from anonymous classroom");
-            }
-        }.start();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                System.out.println(ThreadColor.ANSI_GREEN + " hello from anonymous classroom");
+//            }
+//        }.start();
 
         Thread myRunnableThread = new Thread(new MyRunnable(){
             @Override
             public void run() {
 //                super.run();
                 System.out.println(ThreadColor.ANSI_CYAN + " hello from anonymous class's implementation of run");
+
+                try{
+                    anotherThread.join(2000);
+                    System.out.println(ThreadColor.ANSI_RED + "AnotherThread terminated or timed out, so I m running again");
+                }catch(InterruptedException ex){
+                    System.out.println(ThreadColor.ANSI_RED + " I couldn't wait after all. I was interrupted");
+                }
             }
         });
         myRunnableThread.start();
+//        anotherThread.interrupt();
 
 
-
-        System.out.println("hello again from main thread");
+//        System.out.println("hello again from main thread");
 
 
 
